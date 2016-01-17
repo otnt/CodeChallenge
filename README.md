@@ -31,12 +31,12 @@ I followed the training method written in Cracking the Coding Interview 5th, whi
 3.3 Test code on paper
 
 
-4.1 Write code on a moderate pace
+4.1 Write code on a moderate pace.
 
-4.2 Type code as-is on paper into computer, list all compile and other errors
+4.2 Type code as-is on paper into computer, list all compile and other errors.
 
+5.Test code and carefully fix mistakes - extreme case, 0, negative, null, max, min? User input error (null, negative value)? General case?
 
-5. Test code and carefully fix mistakes - extreme case, 0, negative, null, max, min? User input error (null, negative value)? General case?
-
+#Advise?
 
 I appreciate any comment and advise. Reach me by jiangpufan@gmail.com
