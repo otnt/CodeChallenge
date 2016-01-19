@@ -20,12 +20,14 @@
  * 
  * 2.design algorithm - space & time complexity? what happen if huge amount of 
  * data? did u make right trade-off? what scenario has different trade-off?
- * 2.1 [Idea] - It seems hard at first, but after thinking, this is just a naive addition of original
- * one-dimension traping rain water problem. First, we scan matrix row by row, and find how much
- * water each cell could contain. Then, we do similar operation, but column by column. Finally,
- * for each cell, the water it could contain is the minimum of the two results.
- * 2.2 [Time complexity] - O(3 * N * M)
- * 2.3 [Space complexity] - O(2 * N * M)
+ * 2.1 [Idea] - The key idea is almost the same as trapping rain water 1: First we get
+ * boundary of all cells, then we move innerward from the smallest boundary, for each
+ * move we could calculate that area's trapping water. So, we have to maintain the
+ * smallest elements, thus we should use a minimum priority queue.
+ * Also, for all elements that we have already calculated(including first generated boundary),
+ * we should not calculate them again, so we need a visited map to support this.
+ * 2.2 [Time complexity] - O(N * M * log(N + M))
+ * 2.3 [Space complexity] - O(N * M)
  * 2.4 [If huge amount of data] - 
  * 
  * 3.write pseudocode first, but make sure tell interviewer you will write real
@@ -36,7 +38,7 @@
  * 4.write code on a moderate pace
  * 4.1 Type code as-is on paper into computer, list all compile and other errors
  *
- * 5.test code and carefully fix mistakes - extreme case, 0, negative, null, 
+ * 5.test code and carefully fix mispolls - extreme case, 0, negative, null, 
  * max, min? user input error (null, negative value)? general case?
  * 5.1[Unit tests]
  */
@@ -47,68 +49,103 @@ public class TrapingRainWater2{
             throw new NullPointerException();
         }
         if(heights.length == 0 || heights[0].length == 0) {
-            throw new IllegalArgumentException();
+            return 0;
         }
 
-        int N = heights.length, M = heights[0].length;
+        int N = heights.length,
+            M = heights[0].length,
+            volume = 0;
+        boolean[][] visited = new boolean[N][M];
+        PriorityQueue<Element> boundaryPq = new PriorityQueue<Element>(
+                2 * N + 2 * M, new Comparator<Element>(){
+                    public int compare(Element e1, Element e2) {
+                        return e1.getHeight() - e2.getHeight();
+                    }
+                });
 
-        //row by row
-        int[][] rowHeights = new int[N][M];
-        for(int row = 0; row < N; row++) {
-            int l = 0, r = M - 1;
-            int leftHeight = 0, rightHeight = 0, tmpHeight = 0;
-            while(l < r) {
-                leftHeight = heights[row][l];
-                rightHeight = heights[row][r];
-
-                tmpHeight = heights[row][l];
-                while(l < r && (leftHeight = heights[row][l]) <= rightHeight) {
-                    tmpHeight = Math.max(tmpHeight, leftHeight);
-                    rowHeights[row][l] = tmpHeight - leftHeight;
-                    l++;
-                }
-                tmpHeight = heights[row][r];
-                while(l < r && (rightHeight = heights[row][r]) <= leftHeight) {
-                    tmpHeight = Math.max(tmpHeight, rightHeight);
-                    rowHeights[row][r] = tmpHeight - rightHeight;
-                    r--;
-                }
-            }
-        }
-
-        //col by col
-        int[][] colHeights = new int[N][M];
-        for(int col = 0; col < M; col++) {
-            int u = 0, d = N - 1;
-            int upHeight = 0, downHeight = 0, tmpHeight = 0;
-            while(u < d) {
-                upHeight = heights[u][col];
-                downHeight = heights[d][col];
-
-                tmpHeight = heights[u][col];
-                while(u < d && (upHeight = heights[u][col]) <= downHeight) {
-                    tmpHeight = Math.max(tmpHeight, upHeight);
-                    colHeights[u][col] = tmpHeight - upHeight;
-                    u++;
-                }
-                tmpHeight = heights[d][col];
-                while(u < d && (downHeight = heights[d][col]) <= upHeight) {
-                    tmpHeight = Math.max(tmpHeight, downHeight);
-                    colHeights[d][col] = tmpHeight - downHeight;
-                    d--;
-                }
-            }
-        }
-
-        //add together
-        int water = 0;
-        for(int r = 0; r < N; r++) {
+        //1.get all boundary in priority queue
+        for(int r : new int[]{0, N - 1}) {
             for(int c = 0; c < M; c++) {
-                water += Math.min(rowHeights[r][c], colHeights[r][c]);
+                if(!visited[r][c]) {
+                    visited[r][c] = true;
+                    boundaryPq.offer(new Element(heights[r][c], r, c));
+                }
+            }
+        }
+        for(int r = 0; r < N; r++) {
+            for(int c : new int[]{0, M - 1}) {
+                if(!visited[r][c]) {
+                    visited[r][c] = true;
+                    boundaryPq.offer(new Element(heights[r][c], r, c));
+                }
             }
         }
 
-        return water;
+        //2.loop over all boundary until it is empty, do BFS on 
+        //each elements, store new boundary, update volume
+        while(!boundaryPq.isEmpty()) {
+            volume += bfs(heights, visited, boundaryPq);
+            System.out.println(boundaryPq.size());
+        }
+
+        return volume;
+    }
+
+    private int bfs(int[][] heights, boolean[][] visited, PriorityQueue<Element> boundaryPq) {
+        int N = heights.length,
+            M = heights[0].length;
+        Queue<Element> queue = new LinkedList<Element>();
+        Element e = boundaryPq.poll();
+        int height = e.getHeight(),
+            volume = 0;
+        queue.offer(e);
+        while(!queue.isEmpty()) {
+            Element ee = queue.poll();
+            int eeHeight = ee.getHeight(),
+                eeRow = ee.getRow(),
+                eeCol = ee.getCol();
+            visited[eeRow][eeCol] = true;
+            volume += height - eeHeight;
+
+            addNearby(eeRow > 0, eeRow - 1, eeCol, height, heights, queue, boundaryPq, visited);
+            addNearby(eeRow < N - 1, eeRow + 1, eeCol, height, heights, queue, boundaryPq, visited);
+            addNearby(eeCol > 0, eeRow, eeCol - 1, height, heights, queue, boundaryPq, visited);
+            addNearby(eeCol < M - 1, eeRow, eeCol + 1, height, heights, queue, boundaryPq, visited);
+        }
+
+        return volume;
+    }
+
+    private void addNearby(boolean condition, int r, int c, int height, int[][] heights, 
+            Queue<Element> queue, PriorityQueue<Element> boundaryPq, boolean[][] visited) {
+        if(condition && !visited[r][c]) {
+            visited[r][c] = true;
+            int nHeight = heights[r][c];
+            Element ne = new Element(heights[r][c], r, c);
+            if(nHeight <= height) {
+                queue.offer(ne);
+            }
+            else {
+                boundaryPq.offer(ne);
+            }
+        }
+    }
+
+    class Element {
+        private int height, row, col;
+
+        public Element(int height, int row, int col) {
+            setHeight(height);
+            setRow(row);
+            setCol(col);
+        }
+
+        public int getHeight() {return height;}
+        public int getRow() {return row;}
+        public int getCol() {return col;}
+        public void setHeight(int height) {this.height = height;}
+        public void setRow(int row) {this.row = row;}
+        public void setCol(int col) {this.col = col;}
     }
 
     public static void test() {
