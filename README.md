@@ -7,10 +7,9 @@ My solutions to some code challenge as well as some data structures, design patt
 1. [Leetcode](https://leetcode.com/) solution go to [here](https://github.com/otnt/CodeChallenge).
 2. [Lintcode](http://lintcode.com/) solution go to [here](https://github.com/otnt/CodeChallenge/tree/master/lintcode/java).
 3. Frequently used data structure, go to [here](https://github.com/otnt/CodeChallenge/tree/master/DataStructure).
-4. Frequently used design pattern, go to [here]().
+4. Frequently used design pattern, go to [here](https://github.com/otnt/CodeChallenge/tree/master/DesignPattern).
 5. Frequently used algorithm, go to [here]().
-6. Other cool and interesting problems, go to [here]().
-7. 
+6. Company related problems, go to [here](https://github.com/otnt/CodeChallenge/tree/master/Company).
 
 ## More on this
 
