@@ -100,7 +100,7 @@ public T getCurrent() throws NoSuchElementException {
 }
 ```
 
-You could get full source code at [here](https://github.com/otnt/CodeChallenge/tree/master/DataStructure/iterator/src/iterator).
+You could get full source code at [here](https://github.com/otnt/CodeChallenge/tree/master/DesignPattern/iterator/src/iterator).
 
 ## Java Open-JDK Implementation
 
