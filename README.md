@@ -10,6 +10,22 @@ My solutions to some code challenge as well as some data structures, design patt
 4. Frequently used design pattern, go to [here]().
 5. Frequently used algorithm, go to [here]().
 6. Other cool and interesting problems, go to [here]().
+7. 
+
+## More on this
+
+I'm writing a series of posts on cracking code challenge. These are problems I personally think worthy thinking twice. They could both help you to be a better programmer as well as better-prepared for technical interviews.
+
+Here is the post series. Increasing every day!
+
+#### Introduction
+[Cracking Code Challenge The Hard Way - Introduction](http://otnt.github.io/2016/02/19/Cracking-Code-Challenge-The-Hard-Way-Introduction/)
+
+#### Algorithms
+[Cracking Code Challenge The Hard Way - Two pointerswo pointers](http://otnt.github.io/2016/02/19/Cracking-Code-Challenge-The-Hard-Way-Two-pointers/)
+
+#### Design Patterns
+[Cracking Code Challenge The Hard Way - Iterator Design Pattern](http://otnt.github.io/2016/03/05/Cracking-Code-Challenge-The-Hard-Way-Iterator-Design-Pattern/)
 
 ## Methods
 
