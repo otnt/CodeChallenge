@@ -1,42 +1,29 @@
-# CodeChallenge
+# Cracking code challenge
 
-My solutions to some code challenge including ...
+## What is this
 
---Leetcode https://leetcode.com/
+My solutions to some code challenge as well as some data structures, design patterns, algorithms that every programmer should know.
 
---Lintcode http://lintcode.com/
+1. [Leetcode](https://leetcode.com/) solution go to [here](https://github.com/otnt/CodeChallenge).
+2. [Lintcode](http://lintcode.com/) solution go to [here](https://github.com/otnt/CodeChallenge/tree/master/lintcode/java).
+3. Frequently used data structure, go to [here](https://github.com/otnt/CodeChallenge/tree/master/DataStructure).
+4. Frequently used design pattern, go to [here]().
+5. Frequently used algorithm, go to [here]().
+6. Other cool and interesting problems, go to [here]().
 
---Cracking the Coding Interview 5th http://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/098478280X
-
---Frequently used data structures
-
---Frequently used algorithms
-
---Company problems
-
-#Methods
+## Methods
 
 I followed the training method written in Cracking the Coding Interview 5th, which I briefly explain below:
 
-1.Think about what you can ask interviewer to resolve ambiguity
+1. Think about what you can ask interviewer to resolve ambiguity
+2. Design algorithm. Think about space & time complexity, what happen if huge amount of data, did you make right trade-off, what scenario has different trade-off?
+3. Coding
+ 1. Write pseudocode first.
+ 2. Write code on paper
+ 3. Test code on paper
+4. Type code as-is on paper into computer, list all compile and other errors.
+5. Test code and carefully fix mistakes - extreme case, 0, negative, null, max, min? User input error (null, negative value)? General case?
 
-
-2.Design algorithm. Think about space & time complexity, what happen if huge amount of data, did you make right trade-off, what scenario has different trade-off?
-
-
-3.1 Write pseudocode first.
-
-3.2 Write code on paper
-
-3.3 Test code on paper
-
-
-4.1 Write code on a moderate pace.
-
-4.2 Type code as-is on paper into computer, list all compile and other errors.
-
-5.Test code and carefully fix mistakes - extreme case, 0, negative, null, max, min? User input error (null, negative value)? General case?
-
-#Advise?
+## Advise?
 
 I appreciate any comment and advise. Reach me by jiangpufan@gmail.com
