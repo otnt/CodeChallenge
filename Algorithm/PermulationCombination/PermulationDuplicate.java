@@ -3,6 +3,7 @@
  * have duplicate element, remove duplicate result.
  *
  * See more about permulation and combination, check here:
+ * https://github.com/otnt/CodeChallenge/tree/master/Algorithm/PermulationCombination
  *
  * Before reading this solution, you should first understand how to give
  * a usual permutation without consideration about duplicated elements.

@@ -2,7 +2,7 @@
  * Write a program to give all permulations from 1 to N.
  *
  * See more about permulation and combination, check here:
- *
+ * https://github.com/otnt/CodeChallenge/tree/master/Algorithm/PermulationCombination
  *
  * Our method is: 
  * Recursively, we fix elements one by one, until we fix all elements, we
