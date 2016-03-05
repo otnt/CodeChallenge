@@ -4,19 +4,19 @@
 Two pointers is an idea applicable to many algorithm challenge. The key idea is to think in a parallel way, rather than sequential way which is more natural to humans.
 
 In this post, I will show how to apply the idea of two pointers to these example problems:
-1.[Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/)
-2.[Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
-3.[Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
-4.[Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
+1. [Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/)
+2. [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
+3. [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+4. [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 
 ## How to use two pointers idea
 
 Whenever you find the problem has two boundaries, or two chains (a human-readable word for LinkedList XD) etc. you could try with two pointers idea.
 
 The trick for using two pointers is three step:
-1.Identify where to begin, i.e. where are the start points of the two pointers.
-2.Identify how to move on, i.e. each step how should the two pointers 'walk', which of them should 'walk'.
-3.Identify when to stop, i.e. the condition to stop or swap turn in 'walk'.
+1. Identify where to begin, i.e. where are the start points of the two pointers.
+2. Identify how to move on, i.e. each step how should the two pointers 'walk', which of them should 'walk'.
+3. Identify when to stop, i.e. the condition to stop or swap turn in 'walk'.
 
 ## Example 1 - Intersection of Two Linked Lists
 
