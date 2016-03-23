@@ -27,44 +27,47 @@
  * matching two string, I would first compare head of two strings, then second,
  * then third, and so on and so forth. So that each time matching a new 
  * position, it is based on the result of previous matching. 
- * Also, notice the problem ask for true or false, and the possiblity of matcing
- * is finite, i.e. ., *. or normal letter.
+ * Also, notice the problem ask for true or false, and the possiblity of letter
+ * is finite, i.e. '.', '*'. or normal letter.
  * This leads us to dynamic programming.
  *
- * Now how could we analyze this problem, i.e. how to give a dynamic programming
- * function.
- * It is quite straightforward, how could we know pattern [0...i](0<=i<=M) could match 
- * string [0...j] (0<=j<=N) or not?
- * We already said possibility of matching is finite. So lets think about them
+ * Now what is the dynamic programming function.
+ * It is quite straightforward actually, we want to know if pattern [0...i](0<=i<=M) 
+ * could match string [0...j] (0<=j<=N) or not.
+ * We already said possibility of letter is finite. So lets think about them
  * one by one.
- * If last char are both letter for string and pattern, then check whether they are the same, and
- * pattern[0...i-1] and string[0...j-1] is matching.
- * If last char in pattern is '.', then just check whether pattern[0...i-1] and
+ * 1.If last chars are both letter for string and pattern, then check if they 
+ * are the same, and if pattern[0...i-1] and string[0...j-1] is matching.
+ * 2.If last char in pattern is '.', then just check whether pattern[0...i-1] and
  * string[0...j-1] is matching.
- * If last char is in pattern is '*', it's a little bit more complicated
+ * 3.If last char is in pattern is '*', it's a little bit more complicated
  *   - If the char before '*' is '.', then if pattern[0...i-2] could match with string[0...jj]
  *     for at least one jj <= j, then its okay, since we could use .* to match
  *     any sequence we want.
  *   - Else if char before '*' is a letter, then if pattern[0...i-2] could match with
- *     string[0...jj] for at least one jj<=j and string[jj...j] are all same letter
- *     then its okay, notice here if jj==j then we are using letter* to match
- *     empty
+ *     string[0...jj] for at least one jj<=j and string[jj+1...j] are all same letter
+ *     as pattern[i] then its okay. Notice here if jj+1==j then we are using letter* to match
+ *     empty.
  *
  * Not so complicated,right? Lets write the dynamic programming function explicitly.
  * F(i, j) means pattern[0...i] could match with string[0...j]
  * F(i, j) = F(i-1, j-1) && (pattern[i] == string[j]) //if pattern[i] is letter
  *           F(i-1, j-1)                              //if pattern[i] is .
  *           Or(F(i-2, 0...jj) for all 0<=jj<=j)      //if pattern[i] is .*
- *           Or(F(i-2, 0...jj) && string[jj...j] are same for all 0<=jj<=j)
+ *           Or(F(i-2, 0...jj) && (string[jj+1...j] = pattern[i]) for all 0<=jj<=j)
  *                                                    //if pattern[i] is letter*
  * 
  * Okay, two more things.
+ *
  * First, the last two functions seem awkward, it would make the whole time complexity
- * to be O(M*(N^2)). However, notice that we could use a value k, where
+ * to be O(M*(N^2)). 
+ *
+ * However, notice that we could use a value k, where
  * k = Or(F(i-1, 0...jj)) when we go through from F(i, 0) to F(i, j), 
- * to avoid re-calculate the value everytime. 
+ * to avoid re-calculate that value everytime. 
+ *
  * For the letter* pattern, we could split it to two conditions, think
- * about letter*, it would be either letter == string[j] or not equal
+ * about letter*, it would be either letter equals to string[j] or not equal.
  * If they are not equal, its simple, we just need to check whether pattern[0...i-2]
  * could match string[0...j], i.e. we throw away letter*
  * If they are equal, we could either use letter* to match at least one char in
