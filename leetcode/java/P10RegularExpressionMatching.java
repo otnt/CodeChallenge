@@ -90,6 +90,15 @@
  * a sequence of letter* pattern, so 
  * F(i, 0) = (pattern[i] is '*') && F(i-2, 0) //if i is even number
  *           false                            //otherwise
+ *
+*  Okay, two LAST thing.
+*  First, we could do some time optimization, so that we could potentially stop
+*  earlier. If pattern[0...i] could not match any position in string, and 
+*  pattern[i+1] is not '*', then we are sure the result is false.
+*
+*  Also, since we only need to know dp[i-2][j-1], so that we actually do not
+*  need a M*N matrix, but a M*2 matrix, this would reduce space complexity to
+*  O(M) instead of O(M*N)
  */
 
 /*
@@ -103,10 +112,11 @@
  * dp[i][0] := pattern[i-1] == '*' && dp[i-2][0] for i = 2->M and i is even number
  *
  * //for pattern[0...i]
- * for i = 1 -> M:
- *   k = i>=2 && dp[i-2][0] //could pattern[0...i-2] matching any of string[0...N]
+ * for i := 1 -> M:
+ *   k := i>=2 && dp[i-2][0] //could pattern[0...i-2] matching any of string[0...N]
+ *   match := dp[i][0]
  *   //for string[0...j]
- *   for j= 1 -> N:
+ *   for j := 1 -> N:
  *     k |= i>=2 && dp[i-2][j]
  *     dp[i][j] = dp[i-1][j-1] && pattern[i] == string[j] if pattern[i] is letter
  *                dp[i-1][j-1]                            if pattern[i] is .
@@ -114,6 +124,10 @@
  *                dp[i][j-1] || dp[i-2][j]                if pattern[i] is string[j]*
  *                dp[i-2][j]                              if pattern[i] is letter*
  *                                                           and letter != string[j]
+ *
+ *   //time optimization
+ *   if(not match && pattern[i+1] is not '*')
+ *     break
  * 
  * return dp[M][N] //pattern[0...M] matching string[0...N]
  */
@@ -129,8 +143,10 @@ public class Solution {
             dp[i][0] = (p.charAt(i - 1) == '*' && dp[i-2][0]);
         }
 
+        boolean k, match;
         for(int i = 1; i <= M; i++) {
-            boolean k = i >= 2 && dp[i-2][0];
+            k = i >= 2 && dp[i-2][0];
+            match = dp[i][0];
             char pp = p.charAt(i - 1);//current pattern char
             
             for(int j = 1; j <= N; j++) {
@@ -156,13 +172,16 @@ public class Solution {
                 else {
                     dp[i][j] = dp[i - 2][j];
                 }
+                
+                match |= dp[i][j];
+            }
+            
+            if(!match && i < M && p.charAt(i) != '*') {
+                break;
             }
         }
 
         return dp[M][N];
     }
 }
-
-
-
 
