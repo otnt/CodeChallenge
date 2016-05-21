@@ -1,10 +1,12 @@
 /*
  * formula:
- * f(i, j) = f(i + 1, j - 1)               // if word[i] == word[j]
+ * f(i, j) = 1 // if i == j
+ *           2 + f(i + 1, j - 1) // if word[i] == word[j]
  *           max(f(i + 1, j), f(i, j - 1)) // otherwise
- * r(i, j) = word[i] + r(i + 1, j - 1) + word[j]
- *           r(i + 1, j)
- *           r(i, j - 1)
+ *
+ * r(i, j) = word[i] // if i == j
+ *           word[i] + r(i + 1, j - 1) + word[j]
+ *           r(i + 1, j) or r(i, j - 1)
  */
 
 public class LongestPalindromeSubsequence {
